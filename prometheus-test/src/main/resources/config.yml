@@ -1,0 +1,11 @@
+startDelaySecs: 20
+ssl: false
+blacklistObjectNames: ["java.lang:*"]
+whitelistObjectNames: ["org.apache.camel:*"]
+#rules:
+#  - pattern: org.apache.camel<context=(\w+), type="processors", name="(\w+)"><>(ExchangesCompleted|ExchangesFailed|ExchangesTotal|MinProcessingTime|MeanProcessingTime|MaxProcessingTime|TotalProcessingTime|LastProcessingTime)
+#    name: context_$1
+#    labels: 
+#      type: processors
+#      context: $1 
+#      name: $2 

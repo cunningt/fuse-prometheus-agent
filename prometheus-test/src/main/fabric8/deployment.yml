@@ -1,0 +1,22 @@
+spec: 
+  ports:
+    - name: prom
+      protocol: TCP 
+      port: 4545
+      targetPort: 4545
+  template:
+    spec:
+      ports:
+      - name: prom
+        protocol: TCP 
+        port: 4545
+        targetPort: 4545
+      containers:
+        - name: config
+          env:
+            - name: AB_JOLOKIA_OFF
+              value: true
+            - name: JAVA_OPTIONS 
+              value: -javaagent:/deployments/agent-bond-agent-1.0.2.jar=jmx_exporter{{4545:config.yml}}
+            - name: JAVA_APP_JAR
+              value: test-1.0-SNAPSHOT.jar 

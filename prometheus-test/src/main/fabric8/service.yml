@@ -1,0 +1,10 @@
+spec: 
+  ports:
+  - name: "http"
+    port: 80
+    protocol: "TCP"
+    targetPort: 8080
+  - name: prometheus
+    port: 4545
+    protocol: TCP
+    targetPort: 4545
