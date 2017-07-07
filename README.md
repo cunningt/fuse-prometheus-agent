@@ -1,24 +1,33 @@
 # fuse-prometheus-agent
 Fuse Prometheus agent work
 
+## Install FIS image streams (required by fabric8 maven plugin)
+
+1. `clone git@github.com:jboss-openshift/application-templates.git`
+1. `cd application-templates`
+1. `oc login -u system:admin`
+1. `oc create -n openshift -f ./fis-image-streams.json`
+
 ## Install Prometheus server
 
-1. `oc new project prometheus-example`
+1. `oc login -u developer -p developer`
+1. `oc new-project prometheus-example`
 2. `oc new-app prom/prometheus`
-3. `oc expose prometheus`
+3. `oc expose service prometheus`
 
 ## Install Prometheus example
 
 1. `git clone git@github.com:cunningt/fuse-prometheus-agent.git`
-2. `cd prometheus-test`
+2. `cd fuse-prometheus-agent/prometheus-test/`
 3. `mvn fabric8:deploy`
 4. `oc expose service test --port 4545`
 
 ## Add Prometheus config
 
-1. `cd fuse-prometheus-agent`
-2. `oc create configmap prom-config-example --from-file=prometheus.yml`
-3. `oc edit dc/prometheus` 
+1. `cd ..`
+1. update 'target' in 'prometheus.yml'
+1. `oc create configmap prom-config-example --from-file=prometheus.yml`
+1. `oc edit dc/prometheus` 
 Add the new volume information (https://www.robustperception.io/openshift-and-prometheus/), add the volume and volumeMount
 
 # Install Grafana
