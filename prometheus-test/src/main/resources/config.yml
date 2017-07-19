@@ -3,369 +3,323 @@ ssl: false
 blacklistObjectNames: ["java.lang:*"]
 #whitelistObjectNames: ["org.apache.camel:*"]
 rules:
-# Context level
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>ExchangesCompleted'
-    name: org.apache.camel.ExchangesCompleted
-    help: Exchanges Completed
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>BodyMaxChars'
+    name: camel_body_max_chars
+    help: Number of maximum chars in the message body in the trace message. Use zero or negative value to have unlimited size.
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>BackOffMultiplier'
+    name: camel_back_off_multiplier
+    help: RedeliveryPolicy for backoff multiplier
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>CollisionAvoidanceFactor'
+    name: camel_collision_avoidance_factor
+    help: RedeliveryPolicy for collision avoidance factor
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>CollisionAvoidancePercent'
+    name: camel_collision_avoidance_percent
+    help: RedeliveryPolicy for collision avoidance percent
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>DebugCounter'
+    name: camel_debug_counter
+    help: Number of total debugged messages
     type: COUNTER
     labels:
       context: $1
-      type: context
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>ExchangesFailed'
-    name: org.apache.camel.ExchangesFailed
-    help: Exchanges ExchangesFailed
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>Delay'
+    name: camel_delay
+    help: Timer Delay
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>DeltaProcessingTime'
+    name: camel_delta_processing_time
+    help: Delta Processing Time [milliseconds]
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>ExchangesCompleted'
+    name: camel_exchanges_completed
+    help: Number of completed exchanges
     type: COUNTER
     labels:
       context: $1
-      type: context
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>ExchangesInflight'
-    name: org.apache.camel.ExchangesInflight
-    help: Exchanges Inflight
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>ExchangesFailed'
+    name: camel_exchanges_failed
+    help: Number of failed exchanges
     type: COUNTER
     labels:
       context: $1
-      type: context
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>ExchangesTotal'
-    name: org.apache.camel.ExchangesTotal
-    help: Exchanges Total
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>ExchangesInflight'
+    name: camel_exchanges_inflight
+    help: Number of inflight exchanges
     type: COUNTER
     labels:
       context: $1
-      type: context
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>ExchangesTotal'
-    name: org.apache.camel.ExchangesTotal
-    help: Exchanges Total
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>ExchangesTotal'
+    name: camel_exchanges_total
+    help: Total number of exchanges
     type: COUNTER
     labels:
       context: $1
-      type: context
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>FailuresHandled'
-    name: org.apache.camel.FailuresHandled
-    help: Failures Handled
-    labels:
-        context: $1
-        type: context
-    type: COUNTER
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>ExternalRedeliveries'
-    name: org.apache.camel.ExternalRedeliveries
-    help: External Redeliveries
-    labels:
-        context: $1
-        type: context
-    type: COUNTER
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>MaxProcessingTime'
-    name: org.apache.camel.MaxProcessingTime
-    help: Maximum Processing Time
-    labels:
-        context: $1
-        type: context
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>MeanProcessingTime'
-    name: org.apache.camel.MeanProcessingTime
-    help: Mean Processing Time
-    labels:
-        context: $1
-        type: context
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>MinProcessingTime'
-    name: org.apache.camel.MinProcessingTime
-    help: Minimum Processing Time
-    labels:
-        context: $1
-        type: context
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>Redeliveries'
-    name: org.apache.camel.Redeliveries
-    help: Redeliveries
-    labels:
-        context: $1
-        type: context
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=context, name=([^,]+)><>TotalProcessingTime'
-    name: org.apache.camel.TotalProcessingTime
-    help: Total Processing Time
-    labels:
-        context: $1
-        type: context
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=consumers, name=([^,]+)><>InflightExchanges'
-    name: org.apache.camel.InflightExchanges
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        type: context
-    type: GAUGE
-
-
-# Route level
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>ExchangesCompleted'
-    name: org.apache.camel.ExchangesCompleted
-    help: Exchanges Completed
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>ExternalRedeliveries'
+    name: camel_external_redeliveries
+    help: Number of external initiated redeliveries (such as from JMS broker)
     type: COUNTER
     labels:
       context: $1
-      route: $2
-      type: routes
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>ExchangesFailed'
-    name: org.apache.camel.ExchangesFailed
-    help: Exchanges ExchangesFailed
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>FallbackTimeout'
+    name: camel_fallback_timeout
+    help: Fallback Timeout in seconds when block the message processing in Camel.
     type: COUNTER
     labels:
       context: $1
-      route: $2
-      type: routes
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>ExchangesInflight'
-    name: org.apache.camel.ExchangesInflight
-    help: Exchanges Inflight
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>FailuresHandled'
+    name: camel_failures_handled
+    help: Number of failures handled
     type: COUNTER
     labels:
       context: $1
-      route: $2
-      type: routes
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>ExchangesTotal'
-    name: org.apache.camel.ExchangesTotal
-    help: Exchanges Total
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>Index'
+    name: camel_index
+    help: Processor Index
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>InflightExchanges'
+    name: camel_inflight_exchanges
+    help: Current number of inflight Exchanges
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>LastProcessingTime'
+    name: camel_last_processing_time
+    help: Last Processing Time [milliseconds]
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MaxDuration'
+    name: camel_max_duration
+    help: The maximum wait time in milliseconds
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MaximumRedeliveries'
+    name: camel_maximum_redeliveries
+    help: RedeliveryPolicy for maximum redeliveries
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MaximumRedeliveryDelay'
+    name: camel_maximum_redelivery_delay
+    help: RedeliveryPolicy for maximum redelivery delay
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MaxProcessingTime'
+    name: camel_max_processing_time
+    help: Max Processing Time [milliseconds]
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MeanDuration'
+    name: camel_mean_duration
+    help: The average wait time in milliseconds
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MeanProcessingTime'
+    name: camel_mean_processing_time
+    help: Mean Processing Time [milliseconds]
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MinDuration'
+    name: camel_min_duration
+    help: The minimum wait time in milliseconds
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>MinProcessingTime'
+    name: camel_min_processing_time
+    help: Min Processing Time [milliseconds]
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>OldestInflightDuration'
+    name: camel_oldest_inflight_duration
+    help: Oldest inflight exchange duration
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>PendingRedeliveryCount'
+    name: camel_pending_redelivery_count
+    help: Number of Exchanges scheduled for redelivery (waiting to be redelivered in the future)
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>Period'
+    name: camel_period
+    help: Timer Period
+    type: GAUGE
+    labels:
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>Redeliveries'
+    name: camel_redeliveries
+    help: Number of redeliveries (internal only)
     type: COUNTER
     labels:
       context: $1
-      route: $2
-      type: routes
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>ExchangesTotal'
-    name: org.apache.camel.ExchangesTotal
-    help: Exchanges Total
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>RedeliveryDelay'
+    name: camel_redelivery_delay
+    help: RedeliveryPolicy for redelivery delay
     type: COUNTER
     labels:
       context: $1
-      route: $2
-      type: routes
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>FailuresHandled'
-    name: org.apache.camel.FailuresHandled
-    help: Failures Handled
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: COUNTER
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>ExternalRedeliveries'
-    name: org.apache.camel.ExternalRedeliveries
-    help: External Redeliveries
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: COUNTER
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>MaxProcessingTime'
-    name: org.apache.camel.MaxProcessingTime
-    help: Maximum Processing Time
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>MeanProcessingTime'
-    name: org.apache.camel.MeanProcessingTime
-    help: Mean Processing Time
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>MinProcessingTime'
-    name: org.apache.camel.MinProcessingTime
-    help: Minimum Processing Time
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>Redeliveries'
-    name: org.apache.camel.Redeliveries
-    help: Redeliveries
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>TotalProcessingTime'
-    name: org.apache.camel.TotalProcessingTime
-    help: Total Processing Time
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=routes, name=([^,]+)><>InflightExchanges'
-    name: org.apache.camel.InflightExchanges
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        route: $2
-        type: routes
-    type: GAUGE
-
-
-# Processor level
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>ExchangesCompleted'
-    name: org.apache.camel.ExchangesCompleted
-    help: Exchanges Completed
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>RepeatCount'
+    name: camel_repeat_count
+    help: Repeat Count
     type: COUNTER
     labels:
       context: $1
-      processor: $2
-      type: processors
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>ExchangesFailed'
-    name: org.apache.camel.ExchangesFailed
-    help: Exchanges ExchangesFailed
-    type: COUNTER
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>StartedRoutes'
+    name: camel_started_routes
+    help: Current number of started routes
+    type: GAUGE
     labels:
       context: $1
-      processor: $2
-      type: processors
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>ExchangesInflight'
-    name: org.apache.camel.ExchangesInflight
-    help: Exchanges Inflight
-    type: COUNTER
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>Size'
+    name: camel_size
+    help: Number of threads that are blocked waiting for other threads to trigger the callback when they are done processing the exchange
+    type: GAUGE
     labels:
       context: $1
-      processor: $2
-      type: processors
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>ExchangesTotal'
-    name: org.apache.camel.ExchangesTotal
-    help: Exchanges Total
-    type: COUNTER
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>ThreadsBlocked'
+    name: camel_threads_blocked
+    help: Number of threads that has been blocked
+    type: GAUGE
     labels:
       context: $1
-      processor: $2
-      type: processors
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>ExchangesTotal'
-    name: org.apache.camel.ExchangesTotal
-    help: Exchanges Total
-    type: COUNTER
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>ThreadsInterrupted'
+    name: camel_threads_interrupted
+    help: Number of threads that has been interrupted
+    type: GAUGE
     labels:
       context: $1
-      processor: $2
-      type: processors
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>FailuresHandled'
-    name: org.apache.camel.FailuresHandled
-    help: Failures Handled
-    labels:
-        context: $1
-        processor: $2
-        type: processors
-    type: COUNTER
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>ExternalRedeliveries'
-    name: org.apache.camel.ExternalRedeliveries
-    help: External Redeliveries
-    labels:
-        context: $1
-        processor: $2
-        type: processors
-    type: COUNTER
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>MaxProcessingTime'
-    name: org.apache.camel.MaxProcessingTime
-    help: Maximum Processing Time
-    labels:
-        context: $1
-        processor: $2
-        type: processors
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>Timeout'
+    name: camel_timeout
+    help: Shutdown timeout
     type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>MeanProcessingTime'
-    name: org.apache.camel.MeanProcessingTime
-    help: Mean Processing Time
     labels:
-        context: $1
-        processor: $2
-        type: processors
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>TotalDuration'
+    name: camel_total_duration
+    help: Total wait time in milliseconds
     type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>MinProcessingTime'
-    name: org.apache.camel.MinProcessingTime
-    help: Minimum Processing Time
     labels:
-        context: $1
-        processor: $2
-        type: processors
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>TotalProcessingTime'
+    name: camel_total_processing_time
+    help: Total Processing Time [milliseconds]
     type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>Redeliveries'
-    name: org.apache.camel.Redeliveries
-    help: Redeliveries
     labels:
-        context: $1
-        processor: $2
-        type: processors
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>TotalRoutes'
+    name: camel_total_routes
+    help: Total number of routes
     type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>TotalProcessingTime'
-    name: org.apache.camel.TotalProcessingTime
-    help: Total Processing Time
     labels:
-        context: $1
-        processor: $2
-        type: processors
+      context: $1
+      type: $2
+      name: $3
+  - pattern: 'org.apache.camel<context=([^,]+), type=([^,]+), name=\"([^,]+)\"><>UptimeMillis'
+    name: camel_uptime_millis
+    help: Route uptime in milliseconds
     type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=processors, name=([^,]+)><>InflightExchanges'
-    name: org.apache.camel.InflightExchanges
-    help: Inflight Exchanges
     labels:
-        context: $1
-        processor: $2
-        type: processors
-    type: COUNTER
-
-# Consumers
-  - pattern: 'org.apache.camel<context=([^,]+), type=consumers, name=([^,]+)><>InflightExchanges'
-    name: org.apache.camel.InflightExchanges
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        consumer: $2
-        type: consumers
-    type: GAUGE
-
-# Services
-  - pattern: 'org.apache.camel<context=([^,]+), type=services, name=([^,]+)><>MaxDuration'
-    name: org.apache.camel.MaxDuration
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        service: $2
-        type: services
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=services, name=([^,]+)><>MeanDuration'
-    name: org.apache.camel.MeanDuration
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        service: $2
-        type: services
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=services, name=([^,]+)><>MinDuration'
-    name: org.apache.camel.MinDuration
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        service: $2
-        type: services
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=services, name=([^,]+)><>TotalDuration'
-    name: org.apache.camel.TotalDuration
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        service: $2
-        type: services
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=services, name=([^,]+)><>ThreadsBlocked'
-    name: org.apache.camel.ThreadsBlocked
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        service: $2
-        type: services
-    type: GAUGE
-  - pattern: 'org.apache.camel<context=([^,]+), type=services, name=([^,]+)><>ThreadsInterrupted'
-    name: org.apache.camel.ThreadsInterrupted
-    help: Inflight Exchanges
-    labels:
-        context: $1
-        service: $2
-        type: services
-    type: GAUGE
+      context: $1
+      type: $2
+      name: $3
