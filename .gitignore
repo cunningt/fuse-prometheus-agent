@@ -24,3 +24,8 @@ prometheus-test/target
 prometheus-test/.classpath
 prometheus-test/.project
 prometheus-test/.settings
+cxftest/.settings
+cxftest/target
+cxftest/.classpath
+cxftest/.project
+.vscode

@@ -17,6 +17,6 @@ spec:
             - name: AB_JOLOKIA_OFF
               value: true
             - name: JAVA_OPTIONS 
-              value: -javaagent:/deployments/agent-bond-agent-1.0.2.jar=jmx_exporter{{4545:config.yml}}
+              value: -javaagent:/deployments/agent-bond-agent-1.0.2.jar=jolokia{{port=8778}},jmx_exporter{{4545:config.yml}}
             - name: JAVA_APP_JAR
               value: test-1.0-SNAPSHOT.jar 
