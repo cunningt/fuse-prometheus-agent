@@ -3,7 +3,7 @@ Fuse Prometheus agent work
 
 ## Install FIS image streams (required by fabric8 maven plugin)
 
-1. `clone git@github.com:jboss-openshift/application-templates.git`
+1. `clone git@github.com:jboss-fuse/application-templates.git`
 1. `cd application-templates`
 1. `oc login -u system:admin`
 1. `oc create -n openshift -f ./fis-image-streams.json`
